@@ -26,3 +26,7 @@ fun assertReals f [] (desc:string) = []
 fun assertRegulars f [] (desc:string) = []
 	| assertRegulars f ((input, output, expl)::t) (desc:string) =
 	(assertEqual (f input) output (desc ^ ": " ^ expl)) @ (assertRegulars f t (desc));
+
+fun assertException f arg ex desc =
+  assertEqual ((f arg; "") handle ex' => "raise " ^ exnName ex') ("raise " ^ (exnName ex)) desc;
+
