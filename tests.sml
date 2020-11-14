@@ -19,3 +19,5 @@ assertReals addTwoReal [
 	(1.0, 3.0,	"1.0 + 2.0 = 3.0"),
 	(2.0, 4.0,	"2.0 + 2.0 = 4.0")
 ]								"Should be OK (assertReals)";
+assertException (hd) [] Empty "assertException: Should be OK";
+assertException (hd) [] Match "assertException: Should FAIL";
