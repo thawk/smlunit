@@ -18,7 +18,7 @@ colours = {
 
 def exit(message):
     print(message)
-    print("Usage: ./smlunit [relative path to test file, e.g. hw-tests/hw1.sml]")
+    print("Usage: ./smlunit [relative path to test file(s), e.g. hw1.sml hw1_test.sml]")
     sys.exit(1)
 
 # Preliminary input validation
@@ -33,7 +33,9 @@ except IOError:
 
 start_time = time.time()
 
-command = r'echo "use \"%s/lib/smlunit.sml\"; use \"%s\"" | sml -Cprint.depth=100 -Cprint.length=1000' % (SCRIPT_DIR, filename) # lol
+
+command = r'echo "use \"%s/lib/smlunit.sml\"; %s" | sml -Cprint.depth=100 -Cprint.length=1000' % (
+    SCRIPT_DIR, ' '.join([r"use \"%s\";" % f for f in sys.argv[1:]]))
 output_lines = subprocess.Popen(command, shell=True,stdout=subprocess.PIPE, text=True).communicate()[0].splitlines()
 
 # Ignore all the lines prior to the first test and the last two lines
