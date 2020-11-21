@@ -3,6 +3,9 @@ Control.polyEqWarn := false;
 
 fun roundish (x:real) = Real.realRound(x * 100000000000.0) / 100000000000.0;
 
+fun curry f x y = f (x, y);
+fun uncurry f (x, y) = f x y;
+
 fun assert expr1 expr2 (desc:string) function =
 	(print ("*********** " ^ desc ^ " ***********\n" );
 	(if function (expr1, expr2) then
